@@ -138,6 +138,58 @@ awardsApp.factory('Session', function () {
         return this;
     });
 
+awardsApp.factory('CategoryService', ['$http', '$q', function ($http, $q) {
+    function all() {
+        var deferred = $q.defer();
+
+        $http.get('app/rest/categories')
+            .success(function (data) {
+                deferred.resolve(data);
+            });
+
+        return deferred.promise;
+    }
+
+    return {
+        all: all
+    };
+
+}]);
+
+awardsApp.factory('NomineeService', ['$http', '$q', function ($http, $q) {
+    function getNomineesByCategoryId(categoryId){
+        var deferred = $q.defer();
+
+        $http.get('app/rest/nominees/search?category-id=' + categoryId)
+            .success(function(data){
+                deferred.resolve(data);
+            });
+
+        return deferred.promise;
+    }
+
+    return {
+        getNomineesByCategoryId: getNomineesByCategoryId
+    }
+
+}]);
+
+awardsApp.factory('VoteService', ['$http', function ($http) {
+    function castVote(vote){
+        console.log(vote);
+        $http.post('app/rest/vote',vote)
+            .success(function(data, status){
+                console.log(data);
+                console.log(status);
+            });
+    }
+
+    return {
+        castVote: castVote
+    }
+
+}]);
+
 awardsApp.factory('AuthenticationSharedService', function ($rootScope, $http, authService, Session, Account, Base64Service, AccessToken) {
         return {
             login: function (param) {
@@ -165,7 +217,7 @@ awardsApp.factory('AuthenticationSharedService', function ($rootScope, $http, au
                     AccessToken.remove();
                     delete httpHeaders.common['Authorization'];
                     $rootScope.$broadcast('event:auth-loginRequired', data);
-                    
+
                 });
             },
             valid: function (authorizedRoles) {

@@ -6,6 +6,7 @@
             "home": "Home",
             "categories": "Categories",
             "castVote":"Cast your vote",
+            "results":"Results",
             "entities": {
                 "main": "Entities"
             },

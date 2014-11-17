@@ -270,6 +270,47 @@ awardsApp.controller('LogsController', function ($scope, resolvedLogs, LogsServi
         }
     });
 
+awardsApp.controller('CategoryController', ['$scope','CategoryService', function ($scope, CategoryService) {
+    CategoryService.all().then(function(data){
+        $scope.categories = data;
+    });
+
+}]);
+
+awardsApp.controller('NomineeController', [' $scope','NomineeService','CategoryService', function ($scope, NomineeService,CategoryService) {
+    $scope.nominees = [];
+    $scope.categories = [];
+    $scope.getNomineesByCategory = function(categoryId){
+        NomineeService.getNomineesByCategoryId(categoryId).then(function(data){
+            $scope.nominees = data;
+        })
+    };
+
+    CategoryService.all().then(function(data){
+        console.log(data);
+        $scope.categories = data;
+    });
+}]);
+
+awardsApp.controller('VoteController', ['$scope','VoteService', function ($scope, VoteService) {
+    $scope.vote = {};
+
+    $scope.castVote = function(categoryId, nomineeId){
+        $scope.vote.userId = "user id";
+        $scope.vote.categoryId = categoryId;
+        $scope.vote.nomineeId = nomineeId;
+
+        VoteService.castVote($scope.vote);
+    };
+}]);
+
+awardsApp.controller('TabController', ['$scope', function($scope){
+    $scope.tab = -1;
+    $scope.selectedTab = function(id){
+        $scope.tab = id;
+    };
+}]);
+
 awardsApp.controller('AuditsController', function ($scope, $translate, $filter, AuditsService) {
         $scope.onChangeDate = function() {
             AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function(data){

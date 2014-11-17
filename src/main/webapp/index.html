@@ -40,15 +40,21 @@
                             </a>
                         </li>
                         <li ng-switch-when="true" class="dropdown pointer">
-                             <a href="#">
+                             <a href="#/categories">
                                 <span class="glyphicon glyphicon-list"></span>
                                 <span translate="global.menu.categories">Categories</span>
                             </a>
                         </li>
                          <li ng-switch-when="true" class="dropdown pointer">
-                             <a href="#">
+                             <a href="#/nominees">
                                 <span class="glyphicon glyphicon-ok"></span>
                                 <span translate="global.menu.castVote">Cast your vote</span>
+                            </a>
+                        </li>
+                         <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer">
+                             <a href="#">
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span translate="global.menu.results">Results</span>
                             </a>
                         </li>
                         <li class="dropdown pointer">
