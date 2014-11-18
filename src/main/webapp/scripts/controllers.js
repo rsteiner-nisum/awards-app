@@ -277,21 +277,6 @@ awardsApp.controller('CategoryController', ['$scope','CategoryService', function
 
 }]);
 
-awardsApp.controller('NomineeController', [' $scope','NomineeService','CategoryService', function ($scope, NomineeService,CategoryService) {
-    $scope.nominees = [];
-    $scope.categories = [];
-    $scope.getNomineesByCategory = function(categoryId){
-        NomineeService.getNomineesByCategoryId(categoryId).then(function(data){
-            $scope.nominees = data;
-        })
-    };
-
-    CategoryService.all().then(function(data){
-        console.log(data);
-        $scope.categories = data;
-    });
-}]);
-
 awardsApp.controller('VoteController', ['$scope','VoteService', function ($scope, VoteService) {
     $scope.vote = {};
 
@@ -309,6 +294,20 @@ awardsApp.controller('TabController', ['$scope', function($scope){
     $scope.selectedTab = function(id){
         $scope.tab = id;
     };
+}]);
+
+awardsApp.controller('NomineeController', ['$scope','NomineeService','CategoryService', function($scope, NomineeService,CategoryService){
+    $scope.nominees = [];
+    $scope.categories = [];
+    $scope.getNomineesByCategory = function(categoryId){
+        NomineeService.getNomineesByCategoryId(categoryId).then(function(data){
+            $scope.nominees = data;
+        });
+    };
+
+    CategoryService.all().then(function(data){
+        $scope.categories = data;
+    });
 }]);
 
 awardsApp.controller('AuditsController', function ($scope, $translate, $filter, AuditsService) {
