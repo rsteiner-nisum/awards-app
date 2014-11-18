@@ -280,13 +280,15 @@ awardsApp.controller('CategoryController', ['$scope','CategoryService', function
 awardsApp.controller('VoteController', ['$scope','VoteService', function ($scope, VoteService) {
     $scope.vote = {};
 
-    $scope.castVote = function(categoryId, nomineeId){
-        $scope.vote.userId = "user id";
+    $scope.castVote = function(categoryId, nomineeId, categoryName, nomineeName, userName){
+        $scope.vote.userId = userName;
         $scope.vote.categoryId = categoryId;
         $scope.vote.nomineeId = nomineeId;
 
         VoteService.castVote($scope.vote);
+        $scope.message = "Vote casted for category: " + categoryName + " and nominee: " + nomineeName;
     };
+
 }]);
 
 awardsApp.controller('TabController', ['$scope', function($scope){
@@ -296,14 +298,20 @@ awardsApp.controller('TabController', ['$scope', function($scope){
     };
 }]);
 
-awardsApp.controller('NomineeController', ['$scope','NomineeService','CategoryService', function($scope, NomineeService,CategoryService){
+awardsApp.controller('NomineeController', ['$scope','$filter','NomineeService','CategoryService', function($scope, $filter, NomineeService,CategoryService){
     $scope.nominees = [];
     $scope.categories = [];
+    $scope.categoryName = "";
     $scope.getNomineesByCategory = function(categoryId){
         NomineeService.getNomineesByCategoryId(categoryId).then(function(data){
             $scope.nominees = data;
         });
     };
+
+    $scope.getCategoryName = function(categoryName){
+        $scope.categoryName = categoryName;
+    };
+
 
     CategoryService.all().then(function(data){
         $scope.categories = data;

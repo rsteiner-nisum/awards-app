@@ -176,11 +176,8 @@ awardsApp.factory('NomineeService', ['$http', '$q', function ($http, $q) {
 
 awardsApp.factory('VoteService', ['$http', function ($http) {
     function castVote(vote){
-        console.log(vote);
         $http.post('app/rest/vote',vote)
             .success(function(data, status){
-                console.log(data);
-                console.log(status);
             });
     }
 
