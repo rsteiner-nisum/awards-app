@@ -80,6 +80,7 @@ awardsApp.controller('RegisterController', function ($scope, $translate, Registe
                 $scope.error = null;
                 $scope.errorUserExists = null;
                 $scope.errorEmailExists = null;
+                $scope.invalidAccount = null;
                 Register.save($scope.registerAccount,
                     function (value, responseHeaders) {
                         $scope.success = 'OK';
@@ -91,6 +92,9 @@ awardsApp.controller('RegisterController', function ($scope, $translate, Registe
                         } else if (httpResponse.status === 400 && httpResponse.data === "e-mail address already in use") {
                             $scope.error = null;
                             $scope.errorEmailExists = "ERROR";
+                        } else if(httpResponse.status === 400 && httpResponse.data === "invalid nisum account"){
+                            $scope.error = null;
+                            $scope.invalidAccount = "ERROR";
                         } else {
                             $scope.error = "ERROR";
                         }

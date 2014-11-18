@@ -19,6 +19,10 @@
                 <strong>E-mail is already in use!</strong> Please choose another one.
             </div>
 
+            <div class="alert alert-danger" ng-show="invalidAccount">
+                <strong>Invalid Nisum account!</strong> Please choose a valid Nisum account.
+            </div>
+
             <div class="alert alert-danger" ng-show="doNotMatch" translate="global.messages.error.dontmatch">
                 The password and its confirmation do not match!
             </div>

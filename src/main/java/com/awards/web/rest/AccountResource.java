@@ -75,6 +75,8 @@ public class AccountResource {
         } else {
             if (userRepository.findOneByEmail(userDTO.getEmail()) != null) {
                 return new ResponseEntity<String>("e-mail address already in use", HttpStatus.BAD_REQUEST);
+            }else if(!userDTO.getEmail().split("@")[1].equals("nisum.com")){
+                return new ResponseEntity<String>("invalid nisum account", HttpStatus.BAD_REQUEST);
             }
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
                     userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey());
