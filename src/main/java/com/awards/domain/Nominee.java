@@ -3,7 +3,7 @@ package com.awards.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Nominee")
+@Document(collection = "T_NOMINEE")
 public class Nominee {
 
     @Id
@@ -21,6 +21,10 @@ public class Nominee {
         this.description = description;
         this.imageUrl = imageUrl;
         this.videoUrl = videoUrl;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {

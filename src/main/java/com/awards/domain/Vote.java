@@ -24,6 +24,10 @@ public class Vote extends AbstractAuditingEntity implements Serializable {
         this.nomineeId = nomineeId;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getUserId() {
         return userId;
     }

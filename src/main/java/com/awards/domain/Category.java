@@ -20,6 +20,10 @@ public class Category {
         this.imageUrl = imageUrl;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
