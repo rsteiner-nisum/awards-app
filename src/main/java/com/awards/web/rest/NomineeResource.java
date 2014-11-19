@@ -34,7 +34,7 @@ public class NomineeResource {
                                             @RequestBody(required = true) List<Nominee> nominees) {
         log.info("Saving category {}", nominees.toString());
         nomineeRepository.save(nominees);
-        return new ResponseEntity<String>("Nominees created", HttpStatus.CREATED);
+        return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/rest/nominees/search", method =
@@ -55,7 +55,7 @@ public class NomineeResource {
     public ResponseEntity<String> deleteNominees(@RequestBody(required = true) List<Nominee> nominees){
         log.info("deleting the following nominees", nominees.toString());
         nomineeRepository.delete(nominees);
-        return new ResponseEntity<String>("Nominees deleted", HttpStatus.OK);
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
 

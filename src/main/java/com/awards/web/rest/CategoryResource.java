@@ -43,7 +43,7 @@ public class CategoryResource {
                                             @PathVariable("category-id") String categoryId) {
         log.info("deleting category with id: {}", categoryId);
         categoryRepository.delete(categoryId);
-        return new ResponseEntity<String>("Category deleted", HttpStatus.OK);
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/rest/category/create",
@@ -55,7 +55,7 @@ public class CategoryResource {
                                                 @RequestBody(required = true) List<Category> categories) {
         log.info("Saving category {}", categories.toString());
         categoryRepository.save(categories);
-        return new ResponseEntity<String>("Categories created", HttpStatus.CREATED);
+        return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/rest/category/update",
@@ -67,7 +67,7 @@ public class CategoryResource {
                                               @RequestBody(required = true) List<Category> categories) {
         log.info("Updating category {}", categories.toString());
         categoryRepository.save(categories);
-        return new ResponseEntity<String>("Categories created", HttpStatus.OK);
+        return new ResponseEntity<String>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/rest/category/{category-id}",
