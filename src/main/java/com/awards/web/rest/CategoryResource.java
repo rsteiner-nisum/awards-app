@@ -29,7 +29,7 @@ public class CategoryResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<List<Category>> getCategories() {
         return new ResponseEntity<List<Category>>(categoryRepository.findAll(), HttpStatus.OK);
     }
@@ -74,7 +74,7 @@ public class CategoryResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<Category> getCategoryById(@ApiParam(name="category-id", value="The Id of the product to be retrieved", required=true)
                                              @PathVariable("category-id") String categoryId) {
         return new ResponseEntity<Category>(categoryRepository.findOne(categoryId), HttpStatus.OK);

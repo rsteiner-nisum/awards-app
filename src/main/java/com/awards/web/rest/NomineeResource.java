@@ -41,7 +41,7 @@ public class NomineeResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<List<Nominee>> getNomineesByCategory(@ApiParam(name="category-id", value="The Id of the category-id", required=true)
                                                    @RequestParam("category-id") String categoryId) {
         return new ResponseEntity<List<Nominee>>(nomineeRepository.findNomineesByCategoryId(categoryId), HttpStatus.OK);

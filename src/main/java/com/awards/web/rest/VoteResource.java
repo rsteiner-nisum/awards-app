@@ -30,7 +30,7 @@ public class VoteResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<String> castVote(@ApiParam(name = "Vote", value = "Vote to be casted", required = true)
                                             @RequestBody(required = true) Vote vote) {
         log.info("Casting one vote for user {}, category {}, nominee {}", vote.getUserId()
