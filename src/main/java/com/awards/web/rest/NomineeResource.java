@@ -8,7 +8,6 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,8 @@ public class NomineeResource {
     private NomineeRepository nomineeRepository;
 
     @RequestMapping(value = "/rest/nominees/create",
-        method = RequestMethod.POST)
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<String> saveCategories(@ApiParam(name = "List of nominees", value = "List of nominees to be saved", required = true)
@@ -37,8 +37,8 @@ public class NomineeResource {
         return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/rest/nominees/search", method =
-        RequestMethod.GET,
+    @RequestMapping(value = "/rest/nominees/search",
+        method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed(AuthoritiesConstants.ADMIN)
@@ -49,7 +49,8 @@ public class NomineeResource {
     }
 
     @RequestMapping(value = "/rest/nominees/delete",
-        method = RequestMethod.DELETE)
+        method = RequestMethod.DELETE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<String> deleteNominees(@RequestBody(required = true) List<Nominee> nominees){
@@ -57,6 +58,5 @@ public class NomineeResource {
         nomineeRepository.delete(nominees);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
-
 
 }
