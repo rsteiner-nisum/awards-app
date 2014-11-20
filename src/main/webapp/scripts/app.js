@@ -4,7 +4,7 @@
 var httpHeaders;
 
 var awardsApp = angular.module('awardsApp', ['http-auth-interceptor', 'tmh.dynamicLocale',
-    'ngResource', 'ngRoute', 'ngCookies', 'awardsAppUtils', 'pascalprecht.translate', 'truncate','ngAnimate']);
+    'ngResource', 'ngRoute', 'ngCookies', 'awardsAppUtils', 'pascalprecht.translate', 'truncate']);
 
 awardsApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, tmhDynamicLocaleProvider, USER_ROLES) {
