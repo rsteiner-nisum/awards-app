@@ -1,4 +1,4 @@
-package com.awards.aop.logging;
+package com.awards.aop;
 
 import com.awards.config.Constants;
 import org.aspectj.lang.JoinPoint;
