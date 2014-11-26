@@ -1,6 +1,14 @@
-README for Awards
-==========================
-To execute app run the following commands:
-1.- npm install
-2.- bower install
-3.- mvn spring-boot:run
+AWARDS
+=========
+Basic app to create categories and nominees and vote for those nominees.
+
+Requirements: NodeJs, npm, maven, mongodb
+
+Usage
+--------------
+```
+npm install
+bower install
+mvn spring-boot:run
+
+```
