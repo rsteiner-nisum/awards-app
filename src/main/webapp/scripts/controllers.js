@@ -291,6 +291,9 @@ awardsApp.controller('VoteController', ['$scope','VoteService', function ($scope
 
         VoteService.castVote($scope.vote);
         $scope.message = "Vote casted for category: " + categoryName + " and nominee: " + nomineeName;
+        $scope.clearMessage = function(){
+          $scope.message = null;
+        };
     };
 
 }]);
