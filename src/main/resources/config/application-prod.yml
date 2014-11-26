@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 9595
 
 spring:
     profiles: prod
@@ -11,15 +11,15 @@ spring:
 
 
     mail:
-        baseUrl: http://localhost:8080
+        baseUrl: http://localhost:9595
         host: smtp.gmail.com
         port: 587
-        user: awards.notification.center@gmail.com
-        password: demo12345
+        user: chile-payroll-process@nisum.com
+        password: Pc@1230#
         protocol: smtp
         tls: true
         auth: true
-        from: awards.notification.center@gmail.com
+        from: awards.notification.center@nisum.com
 
     thymeleaf:
         mode: XHTML
