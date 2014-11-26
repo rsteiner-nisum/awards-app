@@ -222,7 +222,8 @@ public class AccountResource {
         variables.put("user", user);
         variables.put("baseUrl", request.getScheme() + "://" +   // "http" + "://
                                  request.getServerName() +       // "myhost"
-                                 ":" + request.getServerPort());
+                                 ":" + request.getServerPort() +
+                                  "/" + request.getContextPath());
         IWebContext context = new SpringWebContext(request, response, servletContext,
                 locale, variables, applicationContext);
         return templateEngine.process("activationEmail", context);
