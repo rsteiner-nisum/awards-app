@@ -298,22 +298,17 @@ awardsApp.controller('VoteController', ['$scope','VoteService', function ($scope
 
 }]);
 
-awardsApp.controller('TabController', ['$scope', function($scope){
-    $scope.tab = -1;
-    $scope.selectedTab = function(id){
-        $scope.tab = id;
-    };
-}]);
-
-awardsApp.controller('NomineeController', ['$scope','$filter','NomineeService','CategoryService', function($scope, $filter, NomineeService,CategoryService){
+awardsApp.controller('NomineeController', ['$scope','$filter','NomineeService','CategoryService','$routeParams', function($scope, $filter, NomineeService,CategoryService, $routeParams){
     $scope.nominees = [];
+    $scope.tab = -1;
     $scope.categories = [];
     $scope.categoryName = "";
-    $scope.getNomineesByCategory = function(categoryId){
-        NomineeService.getNomineesByCategoryId(categoryId).then(function(data){
-            $scope.nominees = data;
-        });
-    };
+
+    NomineeService.getNomineesByCategoryId($routeParams.id).then(function(data){
+        $scope.nominees = data;
+        $scope.tab = $routeParams.id;
+    });
+
 
     $scope.getCategoryName = function(categoryName){
         $scope.categoryName = categoryName;
