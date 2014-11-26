@@ -288,10 +288,15 @@ awardsApp.controller('VoteController', ['$scope','VoteService','$timeout', funct
         $scope.vote.userId = userName;
         $scope.vote.categoryId = categoryId;
         $scope.vote.nomineeId = nomineeId;
-        console.log(categoryName);
 
         VoteService.castVote($scope.vote);
-        displayMessage(categoryName, nomineeName);
+        $scope.message = "Vote casted for category: " + categoryName + " and nominee: " + nomineeName;
+        $scope.displayMessage = true;
+        $timeout(delay, 2500); 
+
+        function delay(){
+           $scope.displayMessage = false;
+        }
 
         $scope.clearMessage = function(){
           $scope.message = null;
