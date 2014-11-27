@@ -20,8 +20,8 @@ import java.io.FileOutputStream;
 
 @RestController
 @RequestMapping("/app")
-public class FileUploadController {
-    private final Logger log = LoggerFactory.getLogger(FileUploadController.class);
+public class FileUploadResource {
+    private final Logger log = LoggerFactory.getLogger(FileUploadResource.class);
 
     @Inject
     private ServletContext servletContext;

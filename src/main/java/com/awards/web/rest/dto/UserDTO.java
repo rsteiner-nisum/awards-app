@@ -21,6 +21,13 @@ public class UserDTO {
     public UserDTO() {
     }
 
+    public UserDTO(String login, String email, String password, String langKey){
+        this.login = login;
+        this.email = email;
+        this.password = password;
+        this.langKey = langKey;
+    }
+
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
                    List<String> roles) {
         this.login = login;

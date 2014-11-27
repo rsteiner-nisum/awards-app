@@ -8,6 +8,7 @@ import com.awards.repository.PersistentTokenRepository;
 import com.awards.repository.UserRepository;
 import com.awards.security.SecurityUtils;
 import com.awards.service.util.RandomUtil;
+import com.awards.web.rest.dto.UserDTO;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -96,7 +97,25 @@ public class UserService {
         log.debug("Changed password for User: {}", currentUser);
     }
 
-    public User getUserWithAuthorities() {
+    public UserDTO resetPassword(String mail) {
+        log.info("Reseting password for mail {}", mail);
+        User user = userRepository.findOneByEmail(mail);
+        UserDTO userDTO;
+        if (null != user){
+            userDTO = buildUserDTO(user, RandomUtil.generatePassword());
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+            userRepository.save(user);
+            return userDTO;
+        } else {
+            return null;
+        }
+    }
+
+  private UserDTO buildUserDTO(User user, String password) {
+    return new UserDTO(user.getLogin(), user.getEmail(), password, user.getLangKey());
+  }
+
+  public User getUserWithAuthorities() {
         User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
         currentUser.getAuthorities().size(); // eagerly load the association
         return currentUser;

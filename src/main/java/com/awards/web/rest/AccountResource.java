@@ -216,6 +216,38 @@ public class AccountResource {
         }
     }
 
+     @RequestMapping(value = "/rest/reset-password",
+            method = RequestMethod.GET)
+    @Timed
+    public ResponseEntity<?> resetPassword(@RequestParam("mail") String mail, HttpServletRequest request,
+                                           HttpServletResponse response)  {
+        UserDTO user = userService.resetPassword(mail);
+         if (null != user) {
+            final Locale locale = Locale.forLanguageTag(user.getLangKey());
+             String content = createPasswordResetContent(user, request, response, locale);
+             mailService.sendEmail(user.getEmail(),
+                     "Awards, your password has been reset",
+                     content,
+                     false,
+                     true);
+
+         }
+         return new ResponseEntity<>(HttpStatus.OK);
+     }
+
+    private String createPasswordResetContent(final UserDTO user, final HttpServletRequest request,
+                                                final HttpServletResponse response, final Locale locale){
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("user", user);
+        variables.put("baseUrl", request.getScheme() + "://" +   // "http" + "://
+        request.getServerName() +       // "myhost"
+        ":" + request.getServerPort() +
+        request.getContextPath());
+        IWebContext context = getiWebContext(locale, request, response, variables);
+        return templateEngine.process("passwordResetMail", context);
+    }
+
+
     private String createHtmlContentFromTemplate(final User user, final Locale locale, final HttpServletRequest request,
                                                  final HttpServletResponse response) {
         Map<String, Object> variables = new HashMap<>();
@@ -224,8 +256,12 @@ public class AccountResource {
                                  request.getServerName() +       // "myhost"
                                  ":" + request.getServerPort() +
                                   request.getContextPath());
-        IWebContext context = new SpringWebContext(request, response, servletContext,
-                locale, variables, applicationContext);
+        IWebContext context = getiWebContext(locale, request, response, variables);
         return templateEngine.process("activationEmail", context);
+    }
+
+    private IWebContext getiWebContext(Locale locale, HttpServletRequest request, HttpServletResponse response, Map<String, Object> variables) {
+        return new SpringWebContext(request, response, servletContext,
+                    locale, variables, applicationContext);
     }
 }
