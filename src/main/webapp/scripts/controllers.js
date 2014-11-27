@@ -284,13 +284,13 @@ awardsApp.controller('CategoryController', ['$scope','CategoryService', function
 awardsApp.controller('VoteController', ['$scope','VoteService','$timeout', function ($scope, VoteService, $timeout) {
     $scope.vote = {};
 
-    $scope.castVote = function(categoryId, nomineeId, categoryName, nomineeName, userName){
+    $scope.castVote = function(categoryId, nomineeId, nomineeName, userName){
         $scope.vote.userId = userName;
         $scope.vote.categoryId = categoryId;
         $scope.vote.nomineeId = nomineeId;
 
         VoteService.castVote($scope.vote);
-        $scope.message = "Vote casted for category: " + categoryName + " and nominee: " + nomineeName;
+        $scope.message = "Vote casted for " + nomineeName;
         $scope.displayMessage = true;
         $timeout(delay, 2500); 
 
@@ -302,11 +302,6 @@ awardsApp.controller('VoteController', ['$scope','VoteService','$timeout', funct
           $scope.message = null;
         };
     };
-
-    function displayMessage(categoryName, nomineeName){
-        $scope.msgClass = "animated fadeInLeft";
-        $scope.message = "Vote casted for  " + nomineeName;
-    }
 
 }]);
 
