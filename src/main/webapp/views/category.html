@@ -3,7 +3,7 @@
         <h1>Categories<small class="pull-right">Showing <span class="badge">{{categories.length}}</span> Categories</small></h1>
     </div>
     <div class="row" style="overflow-y: scroll; height:650px;">
-        <div ng-repeat="category in categories">
+        <div ng-repeat="category in categories | orderBy:'name'">
             <div class="col-md-6">
                 <div class="well well-sm">
                     <div class="row">

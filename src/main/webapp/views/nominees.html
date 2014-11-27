@@ -12,14 +12,14 @@
             <h3>Categories</h3>
             </br>
             <ul id="resultCategoryList" class="nav nav-pills nav-stacked" role="tablist">
-                <li ng-class="{active: tab === category.id}" ng-repeat="category in categories">
+                <li ng-class="{active: tab === category.id}" ng-repeat="category in categories | orderBy:'name'">
                     <a href="#/categories/{{category.id}}" ng-click='selectedTab(category.id); getCategoryName(category.name); clearMessage()'>{{category.name}}</a>
                 </li>
             </ul>
         </div>
         {{categoryName}}
         <div class="col-md-10" style="overflow-y: scroll; height:650px;">
-        <div ng-repeat="nominee in nominees">
+        <div ng-repeat="nominee in nominees | orderBy:'name'">
             <div class="col-md-6" >
                 <div class="well well-sm">
                     <div class="row">
