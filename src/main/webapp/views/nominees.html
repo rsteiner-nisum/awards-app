@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-10" style="overflow-y: scroll; height:650px;">
         <div class="row">
-            <div class="col-lg-6" ng-repeat="nominee in nominees | orderBy:'name'">
+            <div class="col-lg-6 animate bounceIn" ng-repeat="nominee in nominees | orderBy:'name'">
                 <div ng-show="nominee.imageUrl" class="category panel panel-primary">
                     <div class="panel-heading" align="center">
                         <h2>{{nominee.name}}</h2>
