@@ -17,25 +17,39 @@
                 </li>
             </ul>
         </div>
-        {{categoryName}}
         <div class="col-md-10" style="overflow-y: scroll; height:650px;">
-        <div ng-repeat="nominee in nominees | orderBy:'name'">
-            <div class="col-md-6" >
-                <div class="well well-sm">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-12 text-center" align="center">
-                            <div class="col-xs-5 col-md-5">
-                                <img ng-src="{{nominee.imageUrl}}" class="img-thumbnail"/>
-                            </div>
-                            <h3>{{nominee.name}}</h3>
-                            <h5>{{nominee.description}}</h5>
-                            <button class="btn btn-primary" ng-click="castVote(tab, nominee.id, nominee.name, account.login);">Cast your vote!</button>
-                            <hr />
+        <div class="row">
+            <div class="col-lg-6" ng-repeat="nominee in nominees | orderBy:'name'">
+                <div ng-show="nominee.imageUrl" class="category panel panel-primary">
+                    <div class="panel-heading" align="center">
+                        <h2>{{nominee.name}}</h2>
+                        <h4>{{nominee.description}}</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <img class="avatar center-block" ng-src="{{nominee.imageUrl}}">
                         </div>
+                    </div>
+                    <div class="panel-footer">
+                      <div align="center">
+                             <button class="btn btn-primary btn-lg" ng-click="castVote(tab, nominee.id, nominee.name, account.login);">Cast your vote!</button>
+                        </div>
+                     </div>
+                </div>
+                <div ng-show="!nominee.imageUrl" class="category-small panel panel-primary">
+                    <div class="panel-heading" align="center">
+                        <h2>{{nominee.name}}</h2>
+                        <h4>{{nominee.description}}</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div align="center">
+                             <button class="btn btn-primary btn-lg" ng-click="castVote(tab, nominee.id, nominee.name, account.login);">Cast your vote!</button>
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
         </div>
     </div>
 

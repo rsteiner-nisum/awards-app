@@ -113,3 +113,51 @@ ul#strength {
     width:20px;
 }
 /* end Password strength bar style */
+body {
+  padding-top: 50px;
+}
+
+.avatar {
+  max-width: 480px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  padding: 10px;
+}
+
+.category {
+  height: 430px;
+}
+.category-small {
+  height: 200px;
+}
+.category h1 {
+  margin: 0;
+  color: #fff;
+  font-size: 18px;
+}
+
+.category h1 > small {
+  color: #ccc;
+}
+
+.category img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-width: 200px;
+  max-height: 220px;
+}
+
+.category .panel-body {
+  position: relative;
+  height: 250px;
+}
+
+h2 {
+    color: #fff;
+}

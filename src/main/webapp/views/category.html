@@ -2,22 +2,23 @@
     <div class="page-header" align="center">
         <h1>Categories<small class="pull-right">Showing <span class="badge">{{categories.length}}</span> Categories</small></h1>
     </div>
-    <div class="row" style="overflow-y: scroll; height:650px;">
-        <div ng-repeat="category in categories | orderBy:'name'">
-            <div class="col-md-6">
-                <div class="well well-sm">
-                    <div class="row">
-                        <div class="col-xs-4 col-md-4 text-center">
-                            <img ng-src="{{category.imageUrl}}" class="img-thumbnail" />
-                        </div>
-                        <div class="col-xs-8 col-md-8 section-box">
-                            <h2><a href="#/categories/{{category.id}}">&nbsp {{category.name}}</a></h2>
-                            <p>{{category.description}}</p>
-                            <hr />
-                        </div>
+    <div class="row">
+        <div class="col-lg-6" ng-repeat="category in categories | orderBy:'name'">
+            <div class="category panel panel-primary">
+                <div class="panel-heading" align="center">
+                    <a href="#/categories/{{category.id}}"><h2>{{category.name}}</h2></a>
+                </div>
+                <div class="panel-body">
+                    <a href="#/categories/{{category.id}}">
+                        <img class="avatar center-block" ng-src="{{category.imageUrl}}">
+                    </a>
+                </div>
+                <div class="panel-footer">
+                    <div class="text-center">
+                        <p>{{category.description}}</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>  
 </div>
