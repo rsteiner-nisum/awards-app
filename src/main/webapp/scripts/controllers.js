@@ -324,26 +324,23 @@ awardsApp.controller('NomineeController', ['$scope','$filter','NomineeService','
     CategoryService.all().then(function(data){
         $scope.categories = data;
     });
-}]);
+    
+    $scope.maximizePhoto = function(source){
+    	$('#dialog img').attr('src',source);    
+        
+        $('#dialog').dialog({
+            modal: true,
+            width: 'auto',
+            height: 'auto',
+            open: function(){
+                $('.ui-widget-overlay').bind('click',function(){
+                    $('#dialog').dialog('close');
+                });
+            }
+        });
 
-
-awardsApp.controller('ResultsController', ['$scope','ResultsService','CategoryService','$routeParams', function($scope,ResultsService,CategoryService, $routeParams){
-    $scope.nominees = [];
-    $scope.tab = -1;
-    $scope.categories = [];
-
-    ResultsService.getVotesByCategoryId($routeParams.id).then(function(data){
-        $scope.nominees = data;
-        $scope.tab = $routeParams.id;
-    });
-
-    $scope.getCategoryName = function(categoryName){
-        $scope.categoryName = categoryName;
+        $('#dialog').siblings('.ui-dialog-titlebar').remove();
     };
-
-    CategoryService.all().then(function(data){
-        $scope.categories = data;
-    });
 }]);
 
 awardsApp.controller('AuditsController', function ($scope, $translate, $filter, AuditsService) {

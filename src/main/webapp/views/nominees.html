@@ -1,3 +1,4 @@
+<div id='dialog'><img src='' width='500px'></div>
 <div ng-controller="VoteController">
 <div class="cold-md-12">
     <div class="page-header" align="center">
@@ -26,8 +27,8 @@
                         <h4>{{nominee.description}}</h4>
                     </div>
                     <div class="panel-body">
-                        <div>
-                            <img class="avatar center-block" ng-src="{{nominee.imageUrl}}">
+                         <div>
+                            <img class="avatar center-block" ng-click="maximizePhoto(nominee.imageUrl)" ng-src="{{nominee.imageUrl}}">
                         </div>
                     </div>
                     <div class="panel-footer">
