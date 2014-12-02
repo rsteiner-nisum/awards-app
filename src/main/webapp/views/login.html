@@ -5,6 +5,10 @@
 
             <div class="alert alert-danger" ng-show="authenticationError" translate="login.messages.error.authentication">
                 <strong>Authentication failed!</strong> Please check your credentials and try again.
+                <a href=\"#/lostpassword\">(lost password)</a>
+            </div>
+            <div class="alert alert-warning" ng-show="passwordReseted" translate="login.messages.reseted">
+                Your password was reseted, check your mailbox.
             </div>
             <form class="form" role="form">
                 <div class="form-group">

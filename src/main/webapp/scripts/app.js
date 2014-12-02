@@ -65,6 +65,13 @@ awardsApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+                .when('/lostpassword', {
+                    templateUrl: 'views/lostpassword.html',
+                    controller: 'LostPasswordController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    }
+                })
                 .when('/error', {
                     templateUrl: 'views/error.html',
                     access: {

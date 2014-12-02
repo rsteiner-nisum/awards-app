@@ -36,6 +36,12 @@ awardsApp.controller('LoginController', function ($scope, $location, Authenticat
         }
     });
 
+awardsApp.controller('LostPasswordController', function ($scope, LostPasswordService) {
+        $scope.reset = function() {
+            LostPasswordService.reset($scope.username);
+        }
+    });
+
 awardsApp.controller('LogoutController', function ($location, AuthenticationSharedService) {
         AuthenticationSharedService.logout();
     });

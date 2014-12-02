@@ -113,8 +113,17 @@
         },
         "messages": {
             "error": {
-                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again."
-            }
+                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again. <a href='#/lostpassword'>(lost password)</a>"
+            },
+            "reseted": "Your password was reseted. Check you mailbox"
+        }
+    },
+    "lostpassword": {
+        "title":"Lost Password",
+        "form": {
+            "username": "Email",
+            "username.placeholder": "your email address",
+            "submit": "Reset password"
         }
     },
     "settings": {
