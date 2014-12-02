@@ -1,22 +1,21 @@
 package com.awards.web.rest;
 
+import com.awards.domain.Nominee;
 import com.awards.domain.Vote;
 import com.awards.security.AuthoritiesConstants;
 import com.awards.service.VoteService;
 import com.codahale.metrics.annotation.Timed;
-import com.wordnik.swagger.annotations.*;
+import com.wordnik.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import java.util.List;
 
 @RestController
 @RequestMapping("/app")
@@ -39,4 +38,18 @@ public class VoteResource {
         voteService.castVote(vote);
         return new ResponseEntity<String>("Vote casted", HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/rest/vote/results",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<List<Nominee>> getResultsByCategory(@ApiParam(name="category-id", value="category-id", required=true)
+                                                               @RequestParam("category-id") String categoryId) {
+        return new ResponseEntity<List<Nominee>>( voteService.getResultsByCategory(categoryId), HttpStatus.OK);
+    }
+
+
+
+
 }

@@ -1,6 +1,7 @@
 package com.awards.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "T_NOMINEE")
@@ -13,6 +14,8 @@ public class Nominee {
     private String imageUrl;
     private String videoUrl;
     private String categoryId;
+    @Transient
+    private int totalVotes;
 
     public Nominee(){}
 
@@ -67,4 +70,11 @@ public class Nominee {
         this.categoryId = categoryId;
     }
 
+    public int getTotalVotes() {
+        return totalVotes;
+    }
+
+    public void setTotalVotes(int totalVotes) {
+        this.totalVotes = totalVotes;
+    }
 }
