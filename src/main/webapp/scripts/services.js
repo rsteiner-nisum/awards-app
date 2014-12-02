@@ -174,6 +174,25 @@ awardsApp.factory('NomineeService', ['$http', '$q', function ($http, $q) {
 
 }]);
 
+
+awardsApp.factory('ResultsService', ['$http', '$q', function ($http, $q) {
+    function getVotesByCategoryId(categoryId){
+        var deferred = $q.defer();
+
+        $http.get('app/rest/vote/results?category-id=' + categoryId)
+            .success(function(data){
+                deferred.resolve(data);
+            });
+
+        return deferred.promise;
+    }
+
+    return {
+        getVotesByCategoryId: getVotesByCategoryId
+    }
+
+}]);
+
 awardsApp.factory('VoteService', ['$http', function ($http) {
     function castVote(vote){
         $http.post('app/rest/vote',vote)

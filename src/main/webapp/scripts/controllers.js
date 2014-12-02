@@ -326,6 +326,26 @@ awardsApp.controller('NomineeController', ['$scope','$filter','NomineeService','
     });
 }]);
 
+
+awardsApp.controller('ResultsController', ['$scope','ResultsService','CategoryService','$routeParams', function($scope,ResultsService,CategoryService, $routeParams){
+    $scope.nominees = [];
+    $scope.tab = -1;
+    $scope.categories = [];
+
+    ResultsService.getVotesByCategoryId($routeParams.id).then(function(data){
+        $scope.nominees = data;
+        $scope.tab = $routeParams.id;
+    });
+
+    $scope.getCategoryName = function(categoryName){
+        $scope.categoryName = categoryName;
+    };
+
+    CategoryService.all().then(function(data){
+        $scope.categories = data;
+    });
+}]);
+
 awardsApp.controller('AuditsController', function ($scope, $translate, $filter, AuditsService) {
         $scope.onChangeDate = function() {
             AuditsService.findByDates($scope.fromDate, $scope.toDate).then(function(data){

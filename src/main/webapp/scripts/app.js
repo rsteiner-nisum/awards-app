@@ -37,6 +37,20 @@ awardsApp
                         authorizedRoles: [USER_ROLES.user]
                     }
                 })
+                 .when('/results',{
+                    templateUrl: 'views/results.html',
+                    controller: 'ResultsController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
+                .when('/results/:id', {
+                    templateUrl: 'views/results.html',
+                    controller: 'ResultsController',
+                    access: {
+                        authorizedRoles: [USER_ROLES.admin]
+                    }
+                })
                 .when('/activate', {
                     templateUrl: 'views/activate.html',
                     controller: 'ActivationController',
