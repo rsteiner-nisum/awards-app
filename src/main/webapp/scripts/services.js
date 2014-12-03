@@ -206,23 +206,18 @@ awardsApp.factory('VoteService', ['$http', function ($http) {
 
 }]);
 
-awardsApp.factory('LostPasswordService', function ($http, Base64Service) {
+awardsApp.factory('LostPasswordService', function ($rootScope, $http, $location, Base64Service) {
     return {
         reset: function(email) {
-            // TODO: send the proper request for password-reset to the REST service and 
-            // then redirect to the login form (and display 'passwordReseted')
-            $http.get('app/rest/reset-password?mail='+email, {
-                headers: {
-                    "Accept": "application/json",
-                    "Authorization": "Basic " + Base64Service.encode("Awardsapp" + ':' + "mySecretOAuthSecret")
-                }
-            }).then(function(response) {
-                console.log("send request for reset password");
+            $http.get('app/rest/reset-password?mail='+email)
+            .success(function (data, status, headers, config) {
+                    $rootScope.authenticationError = false;
+                    $rootScope.passwordReseted = true;
+                    $location.path('/login');
             });
             
         }
     }
-
 });
 
 
