@@ -60,6 +60,7 @@ public class OAuth2ServerConfiguration {
                 .authorizeRequests()
                 .antMatchers("/app/rest/authenticate").permitAll()
                 .antMatchers("/app/rest/register").permitAll()
+                .antMatchers("/app/rest/reset-password").permitAll()
                 .antMatchers("/app/rest/logs/**").hasAnyAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/app/**").authenticated()
                 .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
