@@ -25,25 +25,33 @@ public class NomineeResource {
     @Inject
     private NomineeRepository nomineeRepository;
 
-    @RequestMapping(value = "/rest/nominees/create",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * creating / updateing nominees
+     */
+    @RequestMapping(value = "/rest/nominees/",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @ApiOperation(value = "/api/rest/nominees",
+            notes = "if no id is specified a new instance is created, otherwise the instance is overriden")
     public ResponseEntity<String> saveCategories(@ApiParam(name = "List of nominees", value = "List of nominees to be saved", required = true)
-                                            @RequestBody(required = true) List<Nominee> nominees) {
+                                                 @RequestBody(required = true) List<Nominee> nominees) {
         log.info("Saving category {}", nominees.toString());
         nomineeRepository.save(nominees);
         return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
+    /**
+     * lists all nominees with a certain category
+     */
     @RequestMapping(value = "/rest/nominees/search",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed(AuthoritiesConstants.USER)
-    public ResponseEntity<List<Nominee>> getNomineesByCategory(@ApiParam(name="category-id", value="The Id of the category-id", required=true)
-                                                   @RequestParam("category-id") String categoryId) {
+    public ResponseEntity<List<Nominee>> getNomineesByCategory(@ApiParam(name = "category-id", value = "The Id of the category-id", required = true)
+                                                               @RequestParam("category-id") String categoryId) {
         return new ResponseEntity<List<Nominee>>(nomineeRepository.findNomineesByCategoryId(categoryId), HttpStatus.OK);
 
     }
