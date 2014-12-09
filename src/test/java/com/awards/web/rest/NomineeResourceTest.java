@@ -3,6 +3,7 @@ package com.awards.web.rest;
 import com.awards.Application;
 import com.awards.domain.Nominee;
 import com.awards.repository.NomineeRepository;
+import com.awards.security.AuthoritiesConstants;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -51,6 +53,7 @@ public class NomineeResourceTest {
     }
 
     @Test
+    @WithMockUser(roles = AuthoritiesConstants.USER)
     public void testSearch() throws Exception {
         when(nomineeRepository.findNomineesByCategoryId(anyString())).thenReturn(new LinkedList<Nominee>());
 
@@ -64,6 +67,7 @@ public class NomineeResourceTest {
     }
 
     @Test
+    @WithMockUser(roles = AuthoritiesConstants.USER)
     public void testSearchWithResults() throws Exception {
         LinkedList<Nominee> lst = new LinkedList<Nominee>();
         lst.add(nominee1);
@@ -84,6 +88,7 @@ public class NomineeResourceTest {
     }
 
     @Test
+    @WithMockUser(roles = AuthoritiesConstants.ADMIN)
     public void testDeleteNonExisting() throws Exception {
         when(nomineeRepository.findOne(anyString())).thenReturn(null);
         ResultActions result = restUserMockMvc.perform(MockMvcRequestBuilders.delete("/app/rest/nominees/{nomineeId}", "9988")
@@ -92,6 +97,7 @@ public class NomineeResourceTest {
     }
 
     @Test
+    @WithMockUser(roles = AuthoritiesConstants.ADMIN)
     public void testDeleteExisting() throws Exception {
         when(nomineeRepository.findOne(anyString())).thenReturn(new Nominee());
         restUserMockMvc.perform(
