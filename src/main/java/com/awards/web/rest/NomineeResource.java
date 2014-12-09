@@ -5,7 +5,10 @@ import com.awards.domain.Nominee;
 import com.awards.repository.NomineeRepository;
 import com.awards.security.AuthoritiesConstants;
 import com.codahale.metrics.annotation.Timed;
-import com.wordnik.swagger.annotations.*;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
+import com.wordnik.swagger.annotations.ApiResponse;
+import com.wordnik.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 import java.util.List;
 
 @RestController
@@ -51,7 +52,7 @@ public class NomineeResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-//    @RolesAllowed(AuthoritiesConstants.USER)
+    @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<List<Nominee>> getNomineesByCategory(@ApiParam(name = "category-id", value = "The Id of the category-id", required = true)
                                                                @RequestParam("category-id") String categoryId) {
         return new ResponseEntity<List<Nominee>>(nomineeRepository.findNomineesByCategoryId(categoryId), HttpStatus.OK);
@@ -65,7 +66,7 @@ public class NomineeResource {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-//    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = "nominee does not exist")
     })
