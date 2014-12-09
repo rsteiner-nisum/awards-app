@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import java.util.List;
 
 @RestController
@@ -49,22 +51,33 @@ public class NomineeResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @RolesAllowed(AuthoritiesConstants.USER)
+//    @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<List<Nominee>> getNomineesByCategory(@ApiParam(name = "category-id", value = "The Id of the category-id", required = true)
                                                                @RequestParam("category-id") String categoryId) {
         return new ResponseEntity<List<Nominee>>(nomineeRepository.findNomineesByCategoryId(categoryId), HttpStatus.OK);
 
     }
 
-    @RequestMapping(value = "/rest/nominees/delete",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * delete a nominee
+     */
+    @RequestMapping(value = "/rest/nominees/{nomineeId}",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<String> deleteNominees(@RequestBody(required = true) List<Nominee> nominees){
-        log.info("deleting the following nominees", nominees.toString());
-        nomineeRepository.delete(nominees);
-        return new ResponseEntity<String>(HttpStatus.OK);
+//    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "nominee does not exist")
+    })
+    public ResponseEntity<String> deleteNominees(@PathVariable("nomineeId") String nomineeId) {
+        log.info("deleting the following nominees: " + nomineeId);
+        if (nomineeRepository.findOne(nomineeId) == null) {
+            return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+        } else {
+            nomineeRepository.delete(nomineeId);
+            return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
+        }
+
     }
 
 }
