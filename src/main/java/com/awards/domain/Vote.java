@@ -62,5 +62,24 @@ public class Vote extends AbstractAuditingEntity implements Serializable {
             "}";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Vote vote = (Vote) o;
+
+        if (id != null && id.equals(vote.id) ) return true;
+
+        if (nomineeId != null ? !nomineeId.equals(vote.nomineeId) : vote.nomineeId != null) return false;
+        if (userId != null ? !userId.equals(vote.userId) : vote.userId != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        return result;
+    }
 }
