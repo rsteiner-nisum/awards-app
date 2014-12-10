@@ -3,6 +3,7 @@ package com.awards.web.rest;
 
 import com.awards.domain.Nominee;
 import com.awards.repository.NomineeRepository;
+import com.awards.repository.VoteRepository;
 import com.awards.security.AuthoritiesConstants;
 import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -27,6 +28,9 @@ public class NomineeResource {
 
     @Inject
     private NomineeRepository nomineeRepository;
+
+    @Inject
+    private VoteRepository voteRepository;
 
     /**
      * creating / updateing nominees
@@ -72,10 +76,17 @@ public class NomineeResource {
     })
     public ResponseEntity<String> deleteNominees(@PathVariable("nomineeId") String nomineeId) {
         log.info("deleting the following nominees: " + nomineeId);
-        if (nomineeRepository.findOne(nomineeId) == null) {
+        Nominee nominee = nomineeRepository.findOne(nomineeId);
+
+        if (nominee == null) {
             return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+
         } else {
+            if (voteRepository == null) throw new RuntimeException("WTF");
+            long deleted = voteRepository.deleteVotesByNominee(nomineeId);
+            log.info("deleted " + deleted + " votes for the nominee.");
             nomineeRepository.delete(nomineeId);
+
             return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
         }
 

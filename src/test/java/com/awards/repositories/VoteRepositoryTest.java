@@ -14,6 +14,11 @@ import org.springframework.test.util.ReflectionTestUtils;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * Tests for VoteRepository
+ *
+ * TODO: how can you change the mongoDB database (eg. to a test mongo db)
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
@@ -39,7 +44,7 @@ public class VoteRepositoryTest {
     }
 
     /**
-     * makes sure that two test votes are in the DB
+     * makes sure that the votes are in the DB
      */
     public void insertSamples() {
         voteRepository.save(vote0);

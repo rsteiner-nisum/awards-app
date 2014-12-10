@@ -3,6 +3,8 @@ package com.awards.web.rest;
 import com.awards.Application;
 import com.awards.domain.Nominee;
 import com.awards.repository.NomineeRepository;
+import com.awards.repository.VoteRepository;
+import com.awards.service.VoteService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +27,7 @@ import java.util.LinkedList;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,8 +36,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class NomineeResourceTest {
 
     private final Nominee nominee1 = new Nominee("myself", "i'm the best", null, null);
+
     @Mock
     private NomineeRepository nomineeRepository;
+
+    @Mock
+    private VoteRepository voteRepository;
+
     @Autowired
     private WebApplicationContext webApplicationContext;
     private MockMvc restUserMockMvc;
@@ -44,6 +52,7 @@ public class NomineeResourceTest {
         MockitoAnnotations.initMocks(this);
         NomineeResource nomineeResource = new NomineeResource();
         ReflectionTestUtils.setField(nomineeResource, "nomineeRepository", nomineeRepository);
+        ReflectionTestUtils.setField(nomineeResource, "voteRepository", voteRepository);
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(nomineeResource).build();
 
         ReflectionTestUtils.setField(nominee1, "id", "nomIDxx01");
